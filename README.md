@@ -1,10 +1,11 @@
-# clear-sim
+# iw-sim
 
 A small server that runs an Ethereum transaction without sending it, and says what moves in and out of the sender's
 wallet. It signs the answer with P-256, so a hardware wallet can check it came from this server and the computer in
 the middle didn't change it.
 
-Made for the [wedgie](https://wedgie.dev). Any wallet can use it.
+Instant Wallet's simulator, at sim.instantwallet.io (also sim.wedgie.dev). The [wedgie](https://wedgie.dev) uses it
+too. Any wallet can. It used to be called clear-sim; the signed text still starts `clear-sim v1`.
 
 ```
 POST {"chain":1,"from":"0xd8da...","to":"0xc02a...","value":"10000000000000000","data":"0xd0e30db0","nonce":"<32 hex>"}
@@ -22,16 +23,16 @@ The format and how to check it: [SPEC.md](SPEC.md).
 Needs Node 24+ and an RPC that allows `debug_traceCall` (Alchemy does; so does your own node with the debug API).
 
 ```
-git clone https://github.com/clawdbotatg/clear-sim && cd clear-sim
+git clone https://github.com/clawdbotatg/iw-sim && cd iw-sim
 echo ALCHEMY_API_KEY=... > .env
 npm start
 ```
 
 The first run makes a key in `.sim-key` and prints its public half. Add that to your wallet's list of simulators.
-Back up `.sim-key`. Run it on a different machine from the one your wallet is plugged into: a hacked computer
+Back up `.sim-key`. For a hardware wallet, run it on a different machine from the one your wallet is plugged into: a hacked computer
 controls a simulator running on itself too.
 
-Docker: `docker build -t clear-sim . && docker run -p 8645:8645 --env-file .env -v $PWD/.sim-key:/app/.sim-key clear-sim`
+Docker: `docker build -t iw-sim . && docker run -p 8645:8645 --env-file .env -v $PWD/.sim-key:/app/.sim-key iw-sim`
 
 Vercel: import the repo, set `SIM_KEY` and `ALCHEMY_API_KEY`.
 

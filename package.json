@@ -1,5 +1,5 @@
 {
-  "name": "clear-sim",
+  "name": "iw-sim",
   "version": "1.0.0",
   "description": "Signed transaction simulation for hardware wallets",
   "license": "MIT",
